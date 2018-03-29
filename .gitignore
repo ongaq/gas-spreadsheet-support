@@ -1,4 +1,5 @@
 node_modules
 .git
 .clasp.json
+*.DS_store
 package-lock.json
