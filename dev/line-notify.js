@@ -2,6 +2,7 @@ const moment = Moment.load();
 const SPREADSHEET_ID = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
 const LINE_TOKEN = PropertiesService.getScriptProperties().getProperty('LINE_TOKEN');
 const today = moment().format('M/D');
+const weekday = moment().day(); // 曜日
 
 // EXILEをチェックし記入漏れ野郎を探す
 function checkToEXILE(){
@@ -56,6 +57,9 @@ function sendHttpPost(message){
 }
 // 時間がきたら処理するやつ
 function processMainProgramWithTime(){
+	// 土日なら処理を中止
+	if (weekday === 0 || weekday === 6) return;
+
 	const name = checkToEXILE();
 	if (name.length) {
 		const message = '記録漏れのデブを発見しました。多分'+name.join('と')+'です。';
