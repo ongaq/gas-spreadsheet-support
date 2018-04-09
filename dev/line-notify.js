@@ -38,7 +38,7 @@ function checkToEXILE(){
 
 		// 体重、体脂肪率どちらかを記入漏れしていたらクソ男認定
 		if (checkWeight.length === 0 || checkFat.length === 0) {
-			kusoGuy[i] = name;
+			kusoGuy.push(name);
 		}
 	}
 	return kusoGuy;
