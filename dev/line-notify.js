@@ -2,6 +2,7 @@ const moment = Moment.load();
 const SPREADSHEET_ID = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
 const LINE_TOKEN = PropertiesService.getScriptProperties().getProperty('LINE_TOKEN');
 const today = moment().format('M/D');
+const GWIsDoNotNotify = ['4/28','4/29','4/30','5/1','5/2','5/3','5/4','5/5','5/6'];
 const weekday = moment().day(); // 曜日
 
 // EXILEをチェックし記入漏れ野郎を探す
@@ -57,8 +58,8 @@ function sendHttpPost(message){
 }
 // 時間がきたら処理するやつ
 function processMainProgramWithTime(){
-	// 土日なら処理を中止
-	if (weekday === 0 || weekday === 6) return;
+	// GW、または土日なら処理を中止
+	if (GWIsDoNotNotify.indexOf(today) !== -1 || weekday === 0 || weekday === 6) return;
 
 	const name = checkToEXILE();
 	if (name.length) {

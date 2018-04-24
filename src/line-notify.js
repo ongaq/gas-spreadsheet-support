@@ -4,6 +4,7 @@ var moment = Moment.load();
 var SPREADSHEET_ID = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
 var LINE_TOKEN = PropertiesService.getScriptProperties().getProperty('LINE_TOKEN');
 var today = moment().format('M/D');
+var GWIsDoNotNotify = ['4/28', '4/29', '4/30', '5/1', '5/2', '5/3', '5/4', '5/5', '5/6'];
 var weekday = moment().day(); // 曜日
 
 // EXILEをチェックし記入漏れ野郎を探す
@@ -61,8 +62,8 @@ function sendHttpPost(message) {
 }
 // 時間がきたら処理するやつ
 function processMainProgramWithTime() {
-	// 土日なら処理を中止
-	if (weekday === 0 || weekday === 6) return;
+	// GW、または土日なら処理を中止
+	if (GWIsDoNotNotify.indexOf(today) !== -1 || weekday === 0 || weekday === 6) return;
 
 	var name = checkToEXILE();
 	if (name.length) {
