@@ -139,6 +139,11 @@ function writeFirestore(name, day, payload) {
 		'payload': JSON.stringify(payload),
 		'muteHttpExceptions': true
 	};
+	var response = UrlFetchApp.fetch(url);
+	var result = JSON.parse(JSON.stringify(response.getContentText()));
 
-	UrlFetchApp.fetch(url, options);
+	// 本日分の書き込みがFirebase hosting側から無ければPOSTする
+	if (!Object.keys(result).length) {
+		return UrlFetchApp.fetch(url, options);
+	}
 }
