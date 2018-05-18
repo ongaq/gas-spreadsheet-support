@@ -140,7 +140,7 @@ function writeFirestore(name, day, payload) {
 		'muteHttpExceptions': true
 	};
 	var response = UrlFetchApp.fetch(url);
-	var result = JSON.parse(JSON.stringify(response.getContentText()));
+	var result = JSON.parse(response.getContentText());
 
 	// 本日分の書き込みがFirebase hosting側から無ければPOSTする
 	if (!Object.keys(result).length) {
