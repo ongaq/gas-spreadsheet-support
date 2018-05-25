@@ -3,6 +3,7 @@
 var moment = Moment.load();
 var SPREADSHEET_ID = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
 var LINE_TOKEN = PropertiesService.getScriptProperties().getProperty('LINE_TOKEN');
+var INPUT_URL = PropertiesService.getScriptProperties().getProperty('INPUT_URL');
 var today = moment().format('M/D');
 var GWIsDoNotNotify = ['4/28', '4/29', '4/30', '5/1', '5/2', '5/3', '5/4', '5/5', '5/6'];
 var weekday = moment().day(); // 曜日
@@ -67,7 +68,7 @@ function processMainProgramWithTime() {
 
 	var name = checkToEXILE();
 	if (name.length) {
-		var message = '記録漏れのデブを発見しました。多分' + name.join('と') + 'です。';
+		var message = '記録漏れのデブを発見しました。' + name.join('と') + 'です。\n以下から本日の記録を入力して下さい。\n' + INPUT_URL;
 		sendHttpPost(message);
 	}
 }
